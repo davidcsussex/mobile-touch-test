@@ -22,12 +22,19 @@ public class moveCat : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         col = gameObject.GetComponent<Collider2D>();
+
+        if(!Input.gyro.enabled)
+         {
+             Input.gyro.enabled = true;
+         }
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         // Handle native touch events
         foreach (Touch touch in Input.touches) {
             HandleTouch(touch.fingerId, Camera.main.ScreenToWorldPoint(touch.position), touch.phase);

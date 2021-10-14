@@ -23,8 +23,9 @@ public class Ship : MonoBehaviour
         
         
         rb.velocity = joystick.GetDirection8() * 10;
-        rb.velocity = joystick.GetDirection() * 10;
-        print("xy=" + rb.velocity.x + "  " + rb.velocity.y);
+        //rb.velocity = joystick.GetDirection() * 10;
+
+        
 
         if(  joystick.IsButtonPressed() == true )
         {

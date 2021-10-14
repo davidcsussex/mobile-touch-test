@@ -23,16 +23,9 @@ public class joystickMove : MonoBehaviour
     private bool touchStart=false;
     private bool moveAllowed;
 
-  
-
-
-    
-
     public GameObject player;
-
     public Transform outerJoystick;
     public Transform innerJoystick;
-    
     public SpriteRenderer fireButton;   // button gameobject
     public Sprite buttonUp;             // button up sprite
     public Sprite buttonDown;           // button down sprite
@@ -119,49 +112,35 @@ public class joystickMove : MonoBehaviour
         switch (touchPhase)
         {
         case TouchPhase.Began:
-    
-            
-
             pointA = worldPos;
             pointB = worldPos;
-
             moveAllowed = true;
+        break;
 
-            break;
         case TouchPhase.Moved:
-
-        //
             if ( moveAllowed)
             {
                 pointB = worldPos;
             }
             
-            break;
+        break;
+
         case TouchPhase.Ended:
-            
             pointA = worldPos;
             pointB = worldPos;
-
-
             moveAllowed = false;
-            
-            break;
+        break;
         }
-
-
     }
 
 
     void FixedUpdate()
     {
         doMove();
-
-        
     }
 
     void doMove()
     {
-
         // set the button up or down sprite
         if( buttonPressed )
         {
@@ -178,20 +157,20 @@ public class joystickMove : MonoBehaviour
         direction = Vector2.ClampMagnitude(offset,1.0f);
 
 
-// draw the inner and outer sprites at the desired location
+        // draw the inner and outer sprites at the desired location
 
         // set the position of the outer part
         outerJoystick.position = new Vector2(pointA.x, pointA.y);
 
         // set the position of the inner part
         innerJoystick.position = new Vector2(pointA.x + direction.x, pointA.y + direction.y);
-        
 
         // disable the gameobjects if the screen is not being touched
         outerJoystick.GetComponent<SpriteRenderer>().enabled = moveAllowed;
         innerJoystick.GetComponent<SpriteRenderer>().enabled = moveAllowed;
 
     }
+
 
 
     // Get direction angle and convert to 8 way 
@@ -216,32 +195,22 @@ public class joystickMove : MonoBehaviour
        // get left/right/up/down based on outAngle value of -4 to +3
        direction8.x=direction8.y=0;
         if( outAngle == -1 || outAngle == -2 || outAngle == -3 )
-        {
             direction8.x=-1;
-        }
 
         if( outAngle == 1 || outAngle == 2 || outAngle == 3 )
-        {
             direction8.x=1;
-        }
 
         if( outAngle == -3 || outAngle == -4 || outAngle == 3 || outAngle==4 )
-        {
             direction8.y=1;
-        }
 
         if( outAngle == -1 || outAngle == 0 || outAngle == 1  )
-        {
             direction8.y=-1;
-        }
 
         if( moveAllowed == false || pointA == pointB )
-        {
             direction8.y=0;
-        }
 
-        print("o=" + outAngle);
-      
+        //direction8.x contains -1, 0 or 1 for left/right            
+        //direction8.y contains -1, 0 or 1 for up/down 
     }
 
     public Vector2 GetDirection8()
